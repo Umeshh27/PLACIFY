@@ -1,8 +1,7 @@
 // --- API Integration for Courses, Jobs, Internships ---
 
-// API Keys
-const GEMINI_API_KEY = "AIzaSyAGgzcbREcjJm6I4F4nbhzLEHB7vXY4_Yo";
-const RAPIDAPI_KEY = "e0ce8d7298mshc3d569700c35d0ep138d6cjsnab592892bcdc";
+// Your API key is now included below.
+const RAPIDAPI_KEY = "e0ce8d7298mshc3d569700c35d0ep138d6cjsnab592892bcdc"; 
 
 // Fetch Free Udemy Courses
 async function fetchFreeCourses() {
@@ -16,9 +15,14 @@ async function fetchFreeCourses() {
     };
     try {
         const response = await fetch(url, options);
+        if (!response.ok) { // Check if the request was successful
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const result = await response.json();
+        console.log("Udemy API Response:", result); // Log to see the raw response
         displayCourses(result.courses || []);
     } catch (error) {
+        console.error("Error fetching free courses:", error); // Log the actual error
         displayCourses([]);
     }
 }
@@ -26,7 +30,7 @@ async function fetchFreeCourses() {
 function displayCourses(courses) {
     const container = document.getElementById("courses-api-cards");
     if (!container) return;
-    container.innerHTML = courses.length === 0 ? '<p class="text-center">No free courses found.</p>' : courses.map(course => `
+    container.innerHTML = courses.length === 0 ? '<p class="text-center" style="color: #ffc107;">Could not fetch courses. Are you subscribed to the API on RapidAPI? Check the console (F12) for errors.</p>' : courses.map(course => `
         <div class="col-md-4">
             <div class="course-card">
                 <div class="course-header">
@@ -58,9 +62,14 @@ async function fetchJobs() {
     };
     try {
         const response = await fetch(url, options);
+        if (!response.ok) { // Check if the request was successful
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const result = await response.json();
+        console.log("JSearch (Jobs) API Response:", result); // Log to see the raw response
         displayJobs(result.data || []);
     } catch (error) {
+        console.error("Error fetching jobs:", error); // Log the actual error
         displayJobs([]);
     }
 }
@@ -68,7 +77,7 @@ async function fetchJobs() {
 function displayJobs(jobs) {
     const container = document.getElementById("jobs-api-cards");
     if (!container) return;
-    container.innerHTML = jobs.length === 0 ? '<p class="text-center">No jobs found.</p>' : jobs.map(job => `
+    container.innerHTML = jobs.length === 0 ? '<p class="text-center" style="color: #ffc107;">Could not fetch jobs. Are you subscribed to the API on RapidAPI? Check the console (F12) for errors.</p>' : jobs.map(job => `
         <div class="grid-item">
             <div class="grid-item-container">
                 <div class="glowing-effect jobs-glow"></div>
@@ -79,9 +88,9 @@ function displayJobs(jobs) {
                     </div>
                     <p class="opportunity-company">${job.employer_name || "Company"}</p>
                     <div class="opportunity-details">
-                        <span class="salary"><i class="fas fa-coins me-1"></i>${job.job_salary_currency ? job.job_salary_currency + " " + (job.job_min_salary || "-") + "-" + (job.job_max_salary || "-") : "-"}</span>
-                        <span class="location"><i class="fas fa-map-marker-alt me-1"></i>${job.job_city || "-"}</span>
-                        <span class="posted"><i class="fas fa-clock me-1"></i>${job.job_posted_at_datetime_utc ? new Date(job.job_posted_at_datetime_utc).toLocaleDateString() : "-"}</span>
+                        <span class="salary"><i class="fas fa-coins me-1"></i>${job.job_salary_currency ? job.job_salary_currency + " " + (job.job_min_salary || "-") + "-" + (job.job_max_salary || "-") : "N/A"}</span>
+                        <span class="location"><i class="fas fa-map-marker-alt me-1"></i>${job.job_city || "N/A"}</span>
+                        <span class="posted"><i class="fas fa-clock me-1"></i>${job.job_posted_at_datetime_utc ? new Date(job.job_posted_at_datetime_utc).toLocaleDateString() : "N/A"}</span>
                     </div>
                     <a href="${job.job_apply_link}" target="_blank" class="btn btn-primary btn-sm mt-2">Apply</a>
                 </div>
@@ -102,9 +111,14 @@ async function fetchInternships() {
     };
     try {
         const response = await fetch(url, options);
+        if (!response.ok) { // Check if the request was successful
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const result = await response.json();
+        console.log("JSearch (Internships) API Response:", result); // Log to see the raw response
         displayInternships(result.data || []);
     } catch (error) {
+        console.error("Error fetching internships:", error); // Log the actual error
         displayInternships([]);
     }
 }
@@ -112,7 +126,7 @@ async function fetchInternships() {
 function displayInternships(internships) {
     const container = document.getElementById("internships-api-cards");
     if (!container) return;
-    container.innerHTML = internships.length === 0 ? '<p class="text-center">No internships found.</p>' : internships.map(intern => `
+    container.innerHTML = internships.length === 0 ? '<p class="text-center" style="color: #ffc107;">Could not fetch internships. Are you subscribed to the API on RapidAPI? Check the console (F12) for errors.</p>' : internships.map(intern => `
         <div class="grid-item">
             <div class="grid-item-container">
                 <div class="glowing-effect internships-glow"></div>
@@ -123,9 +137,9 @@ function displayInternships(internships) {
                     </div>
                     <p class="opportunity-company">${intern.employer_name || "Company"}</p>
                     <div class="opportunity-details">
-                        <span class="salary"><i class="fas fa-coins me-1"></i>${intern.job_salary_currency ? intern.job_salary_currency + " " + (intern.job_min_salary || "-") + "-" + (intern.job_max_salary || "-") : "-"}</span>
-                        <span class="location"><i class="fas fa-map-marker-alt me-1"></i>${intern.job_city || "-"}</span>
-                        <span class="posted"><i class="fas fa-clock me-1"></i>${intern.job_posted_at_datetime_utc ? new Date(intern.job_posted_at_datetime_utc).toLocaleDateString() : "-"}</span>
+                        <span class="salary"><i class="fas fa-coins me-1"></i>${intern.job_salary_currency ? intern.job_salary_currency + " " + (intern.job_min_salary || "-") + "-" + (intern.job_max_salary || "-") : "N/A"}</span>
+                        <span class="location"><i class="fas fa-map-marker-alt me-1"></i>${intern.job_city || "N/A"}</span>
+                        <span class="posted"><i class="fas fa-clock me-1"></i>${intern.job_posted_at_datetime_utc ? new Date(intern.job_posted_at_datetime_utc).toLocaleDateString() : "N/A"}</span>
                     </div>
                     <a href="${intern.job_apply_link}" target="_blank" class="btn btn-primary btn-sm mt-2">Apply</a>
                 </div>
@@ -146,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (path.endsWith("internships.html")) {
         fetchInternships();
     }
+    initializePage(); // Keep your original page initialization
 });
 // College Placement Data
 var placementData = {
