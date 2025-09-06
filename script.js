@@ -62,14 +62,14 @@ async function fetchJobs() {
     };
     try {
         const response = await fetch(url, options);
-        if (!response.ok) { // Check if the request was successful
+        if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        console.log("JSearch (Jobs) API Response:", result); // Log to see the raw response
+        console.log("JSearch (Jobs) API Full Response:", result);
         displayJobs(result.data || []);
     } catch (error) {
-        console.error("Error fetching jobs:", error); // Log the actual error
+        console.error("Error fetching jobs:", error);
         displayJobs([]);
     }
 }
@@ -112,14 +112,14 @@ async function fetchInternships() {
     };
     try {
         const response = await fetch(url, options);
-        if (!response.ok) { // Check if the request was successful
+        if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        console.log("JSearch (Internships) API Response:", result); // Log to see the raw response
+        console.log("JSearch (Internships) API Full Response:", result);
         displayInternships(result.data || []);
     } catch (error) {
-        console.error("Error fetching internships:", error); // Log the actual error
+        console.error("Error fetching internships:", error);
         displayInternships([]);
     }
 }
