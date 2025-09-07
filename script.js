@@ -1266,7 +1266,10 @@ function displayPlacementContent(selection) {
         }
     });
     document.getElementById('next-btn')?.addEventListener('click', () => {
-        if (
+        if (currentPage < totalPages) {
+            currentPage++;
+            displayPlacementContent(selection);
+        }
     });
 }
 
