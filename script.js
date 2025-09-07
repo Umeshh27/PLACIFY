@@ -921,30 +921,38 @@ var placementData = {
     ]
 };
 
-// --- API Integration for Jobs and Internships ---
+// --- API Integration for Jobs and Internships via Backend ---
 const RAPIDAPI_KEY = "e0ce8d7298mshc3d569700c35d0ep138d6cjsnab592892bcdc";
 
 // Fetch Jobs
 async function fetchJobs() {
-    const url = "https://jsearch.p.rapidapi.com/search?query=developer&num_pages=1";
-    const options = {
-        method: "GET",
-        headers: {
-            "X-RapidAPI-Key": RAPIDAPI_KEY,
-            "X-RapidAPI-Host": "jsearch.p.rapidapi.com"
-        }
-    };
     try {
-        const response = await fetch(url, options);
+        const response = await fetch('/api/jobs');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        console.log("JSearch (Jobs) API Full Response:", result);
+        console.log("Backend (Jobs) API Full Response:", result);
         displayJobs(result.data || []);
     } catch (error) {
-        console.error("Error fetching jobs:", error);
+        console.error("Error fetching jobs from backend:", error);
         displayJobs([]);
+    }
+}
+
+// Fetch Internships
+async function fetchInternships() {
+    try {
+        const response = await fetch('/api/internships');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log("Backend (Internships) API Full Response:", result);
+        displayInternships(result.data || []);
+    } catch (error) {
+        console.error("Error fetching internships from backend:", error);
+        displayInternships([]);
     }
 }
 
@@ -1258,15 +1266,7 @@ function displayPlacementContent(selection) {
         }
     });
     document.getElementById('next-btn')?.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            displayPlacementContent(selection);
-        }
-    });
-
-    // Event listener for the new download button
-    document.getElementById('download-pdf-btn')?.addEventListener('click', () => {
-        generatePlacementPDF(selection, data); // Pass all data for the year
+        if (
     });
 }
 
