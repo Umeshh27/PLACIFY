@@ -960,24 +960,15 @@ function displayJobs(jobs) {
     const container = document.getElementById("jobs-api-cards");
     if (!container) return;
     container.innerHTML = jobs.length === 0 ? '<p class="text-center" style="color: #ffc107;">No jobs found. Check your API subscription and console for errors.</p>' : jobs.map(job => `
-        <div class="grid-item">
-            <div class="grid-item-container">
-                <div class="glowing-effect jobs-glow"></div>
-                <div class="grid-item-content jobs-bg">
-                    <div class="opportunity-header">
-                        <h6>${job.job_title}</h6>
-                        <span class="opportunity-type job">${job.job_employment_type || "Full-time"}</span>
-                    </div>
-                    <p class="opportunity-company">${job.employer_name || "Company"}</p>
-                    <div class="opportunity-details">
-                        <span class="salary"><i class="fas fa-coins me-1"></i>${job.job_salary_currency ? job.job_salary_currency + " " + (job.job_min_salary || "-") + "-" + (job.job_max_salary || "-") : "-"}</span>
-                        <span class="location"><i class="fas fa-map-marker-alt me-1"></i>${job.job_city || job.job_location || "-"}</span>
-                        <span class="posted"><i class="fas fa-clock me-1"></i>${job.job_posted_at_datetime_utc ? new Date(job.job_posted_at_datetime_utc).toLocaleDateString() : job.job_posted_at || "-"}</span>
-                    </div>
-                    <p class="job-desc">${job.job_description ? job.job_description.substring(0, 200) + "..." : "No description available."}</p>
-                    <a href="${job.job_apply_link}" target="_blank" class="btn btn-primary btn-sm mt-2">Apply</a>
-                </div>
-            </div>
+        <div class="job-item">
+            <h3>${job.job_title}</h3>
+            <p><strong>Type:</strong> ${job.job_employment_type || "Full-time"}</p>
+            <p><strong>Company:</strong> ${job.employer_name || "Company"}</p>
+            <p><strong>Salary:</strong> ${job.job_salary_currency ? job.job_salary_currency + " " + (job.job_min_salary || "-") + "-" + (job.job_max_salary || "-") : "-"}</p>
+            <p><strong>Location:</strong> ${job.job_city || job.job_location || "-"}</p>
+            <p><strong>Posted:</strong> ${job.job_posted_at_datetime_utc ? new Date(job.job_posted_at_datetime_utc).toLocaleDateString() : job.job_posted_at || "-"}</p>
+            <p>${job.job_description ? job.job_description.substring(0, 200) + "..." : "No description available."}</p>
+            <a href="${job.job_apply_link}" target="_blank" class="btn btn-primary btn-sm mt-2">Apply</a>
         </div>
     `).join("");
 }
@@ -1010,24 +1001,15 @@ function displayInternships(internships) {
     const container = document.getElementById("internships-api-cards");
     if (!container) return;
     container.innerHTML = internships.length === 0 ? '<p class="text-center">No internships found.</p>' : internships.map(intern => `
-        <div class="grid-item">
-            <div class="grid-item-container">
-                <div class="glowing-effect internships-glow"></div>
-                <div class="grid-item-content internships-bg">
-                    <div class="opportunity-header">
-                        <h6>${intern.job_title}</h6>
-                        <span class="opportunity-type internship">Internship</span>
-                    </div>
-                    <p class="opportunity-company">${intern.employer_name || "Company"}</p>
-                    <div class="opportunity-details">
-                        <span class="salary"><i class="fas fa-coins me-1"></i>${intern.job_salary_currency ? intern.job_salary_currency + " " + (intern.job_min_salary || "-") + "-" + (intern.job_max_salary || "-") : "-"}</span>
-                        <span class="location"><i class="fas fa-map-marker-alt me-1"></i>${intern.job_city || intern.job_location || "-"}</span>
-                        <span class="posted"><i class="fas fa-clock me-1"></i>${intern.job_posted_at_datetime_utc ? new Date(intern.job_posted_at_datetime_utc).toLocaleDateString() : intern.job_posted_at || "-"}</span>
-                    </div>
-                    <p class="job-desc">${intern.job_description ? intern.job_description.substring(0, 200) + "..." : "No description available."}</p>
-                    <a href="${intern.job_apply_link}" target="_blank" class="btn btn-primary btn-sm mt-2">Apply</a>
-                </div>
-            </div>
+        <div class="internship-item">
+            <h3>${intern.job_title}</h3>
+            <p><strong>Type:</strong> Internship</p>
+            <p><strong>Company:</strong> ${intern.employer_name || "Company"}</p>
+            <p><strong>Salary:</strong> ${intern.job_salary_currency ? intern.job_salary_currency + " " + (intern.job_min_salary || "-") + "-" + (intern.job_max_salary || "-") : "-"}</p>
+            <p><strong>Location:</strong> ${intern.job_city || intern.job_location || "-"}</p>
+            <p><strong>Posted:</strong> ${intern.job_posted_at_datetime_utc ? new Date(intern.job_posted_at_datetime_utc).toLocaleDateString() : intern.job_posted_at || "-"}</p>
+            <p>${intern.job_description ? intern.job_description.substring(0, 200) + "..." : "No description available."}</p>
+            <a href="${intern.job_apply_link}" target="_blank" class="btn btn-primary btn-sm mt-2">Apply</a>
         </div>
     `).join("");
 }
